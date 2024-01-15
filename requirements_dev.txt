@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+petals
+ascii_colors
+transformers
