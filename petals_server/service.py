@@ -189,9 +189,18 @@ def read_root():
 
 
 def main():
-    import uvicorn
-    start_server()
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    parser = argparse.ArgumentParser(description="Start the server with the given parameters.")
+    parser.add_argument("--model_name", type=str, required=True, help="Name of the model to use")
+    parser.add_argument("--node_name", type=str, required=True, help="Name of the node")
+    parser.add_argument("--device", type=str, required=True, help="Device to run the model on")
+    parser.add_argument("--host", type=str, default="localhost", help="Host for the server")
+    parser.add_argument("--port", type=int, default=8064, help="Port for the server")
+
+    args = parser.parse_args()
+
+    start_server(args.model_name, args.node_name, args.device)
+    
+    uvicorn.run("app:app", host=args.host, port=args.port)
 
 if __name__ == "__main__":
     main()
